@@ -3,11 +3,12 @@
 const app = Vue.createApp({
     data() {
         return {
+            url: 'ry.brock@ymail.com',
             showBooks: true,
             books: [
-                { title: 'name of the wind', author: 'patrick rothfus' },
-                { title: 'the way of kins', author: 'brandon sanderson' },
-                { title: 'IT', author: 'steven king' },
+                { title: 'name of the wind', author: 'patrick rothfus', img: 'assets/1.jpg', isFave: true },
+                { title: 'the way of kins', author: 'brandon sanderson', img: 'assets/2.jpg', isFave: false },
+                { title: 'IT', author: 'steven king', img: 'assets/3.jpg', isFave: true },
             ]
         }
     },
@@ -20,6 +21,11 @@ const app = Vue.createApp({
         toggleShowBooks() {
             this.showBooks = !this.showBooks;
         },
+        // ### Challenge
+        // passing in (book) as an argument from the template
+        toggleisFave(book) {
+            book.isFave = !book.isFave;
+        }
         // handleEvent(e, data) {
         //     console.log(e, e.type)
         //     if (data) {
@@ -31,7 +37,16 @@ const app = Vue.createApp({
         //     this.y = e.offsetY;
         //     console.log(x, y);
         // },
+    },
+    computed: {
+        filteredBooks() {
+            return this.books.filter((book) => book.isFave)
+        }
     }
 
 })
 app.mount('#app')
+
+// Challenge - Add to Faves
+// - Attatch a click event to each li tag
+// - When a user clicks an li, toggle the isFave property of that book
